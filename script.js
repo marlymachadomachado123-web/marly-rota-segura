@@ -1,30 +1,32 @@
-const form = document.getElementById("formRisco");
 const painel = document.getElementById("painel");
+const form = document.querySelector("form");
 
-form.addEventListener("submit", function(event){
+form.addEventListener("submit", function(e){
+    e.preventDefault();
 
-event.preventDefault();
+    const tipo = document.getElementById("tipo").value;
+    const local = document.getElementById("local").value;
 
-const tipo = document.getElementById("tipo").value;
-const local = document.getElementById("local").value;
+    const registro = document.createElement("div");
+    registro.style.padding = "10px";
+    registro.style.margin = "5px";
+    registro.style.borderRadius = "6px";
 
-let classe = "risco";
+    if(tipo === "perigo"){
+        registro.style.background = "#ffb3b3";
+    }
 
-if(tipo === "Ponte quebrada"){ classe += " ponte"; }
-if(tipo === "Alagamento"){ classe += " alagamento"; }
-if(tipo === "Atoleiro"){ classe += " atoleiro"; }
-if(tipo === "Estrada perigosa"){ classe += " perigo"; }
-if(tipo === "Manutenção"){ classe += " manutencao"; }
+    if(tipo === "atenção"){
+        registro.style.background = "#fff0b3";
+    }
 
-const bloco = document.createElement("div");
-bloco.className = classe;
+    if(tipo === "seguro"){
+        registro.style.background = "#b3ffcc";
+    }
 
-bloco.innerHTML =
-"Tipo: " + tipo + "<br>" +
-"Local: " + local;
+    registro.innerHTML = "<b>" + tipo + "</b> - " + local;
 
-painel.appendChild(bloco);
+    painel.appendChild(registro);
 
-form.reset();
-
+    form.reset();
 });
